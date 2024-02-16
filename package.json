@@ -10,6 +10,25 @@
     "nodemon": "^3.0.3"
   },
   "scripts": {
-    "start": "nodemon index.js"
-  }
+    "admin": "nodemon ./bin/admin",
+    "customer": "nodemon ./bin/customer"
+  },
+  "name": "dmos-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "dmos-be": "bin/admin.js"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaysoni1257/DMOS-BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshaysoni1257/DMOS-BE/issues"
+  },
+  "homepage": "https://github.com/akshaysoni1257/DMOS-BE#readme",
+  "description": ""
 }
