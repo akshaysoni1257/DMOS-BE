@@ -7,9 +7,28 @@
     "express-fileupload": "^1.4.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^6.12.6",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "qrcode": "^1.5.3"
   },
   "scripts": {
-    "start": "nodemon index.js"
-  }
+    "admin": "nodemon ./bin/admin",
+    "customer": "nodemon ./bin/customer"
+  },
+  "name": "dmos-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "dmos-be": "bin/admin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaysoni1257/DMOS-BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshaysoni1257/DMOS-BE/issues"
+  },
+  "homepage": "https://github.com/akshaysoni1257/DMOS-BE#readme",
+  "description": ""
 }
