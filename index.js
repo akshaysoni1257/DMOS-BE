@@ -10,5 +10,7 @@ app.use(express.json());
 app.use('/user',require('./routes/user'));
 app.use('/product',require('./routes/product'));
 app.use('/category',require('./routes/category'));
+app.use('/aboutus',require('./routes/aboutus'));
+app.use('/tableRoutes',require('./routes/tableRoutes'));
 
 module.exports = app;
