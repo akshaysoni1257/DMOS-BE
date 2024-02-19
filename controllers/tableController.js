@@ -1,5 +1,6 @@
 const qr = require('qrcode');
 const fs = require('fs');
+const path = require('path'); // Import the path module
 const Table = require('../models/Table');
 
 async function generateQRCodeForTable(tableNumber) {
@@ -8,11 +9,13 @@ async function generateQRCodeForTable(tableNumber) {
     try {
         const qrCodeImage = await qr.toDataURL(qrData);
         const qrCodeFileName = `table_${tableNumber}_qr.png`;
+        const uploadFolder = path.join(__dirname, '../upload'); // Path to the upload folder
         
-        fs.writeFileSync(qrCodeFileName, qrCodeImage.split(';base64,').pop(), { encoding: 'base64' });
+        // Save QR code image in the upload folder
+        fs.writeFileSync(path.join(uploadFolder, qrCodeFileName), qrCodeImage.split(';base64,').pop(), { encoding: 'base64' });
 
         // Save QR code data in MongoDB
-        await Table.create({ number: tableNumber, qrCode: qrCodeFileName });
+        await Table.create({ number: tableNumber, qrCode: path.join('upload', qrCodeFileName) });
 
         console.log(`QR code for Table ${tableNumber} generated and saved successfully!`);
     } catch (error) {
