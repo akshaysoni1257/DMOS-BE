@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path'); // Import the path module
 const Table = require('../models/Table');
 
-async function generateQRCodeForTable(tableNumber) {
-    const qrData = `Table ${tableNumber} QR Code`;
+async function generateQRCodeForTable(tableNumber, storeLink) {
+    const qrData = `${storeLink}/table/${tableNumber}`; // Combine store link with table number
 
     try {
         const qrCodeImage = await qr.toDataURL(qrData);
@@ -15,7 +15,7 @@ async function generateQRCodeForTable(tableNumber) {
         fs.writeFileSync(path.join(uploadFolder, qrCodeFileName), qrCodeImage.split(';base64,').pop(), { encoding: 'base64' });
 
         // Save QR code data in MongoDB
-        await Table.create({ number: tableNumber, qrCode: path.join('upload', qrCodeFileName) });
+        await Table.create({ number: tableNumber,storeLink:storeLink, qrCode: path.join('upload', qrCodeFileName) });
 
         console.log(`QR code for Table ${tableNumber} generated and saved successfully!`);
     } catch (error) {

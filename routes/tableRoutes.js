@@ -6,9 +6,10 @@ const verifyToken = require('../middleware/authMiddleware');
 // Generate QR code for a table
 router.post('/generateQR/:tableNumber', async (req, res) => {
     const tableNumber = req.params.tableNumber;
+    const storeLink = req.body.storeLink;
 
     try {
-        await tableController.generateQRCodeForTable(tableNumber);
+        await tableController.generateQRCodeForTable(tableNumber,storeLink);
         res.status(200).send(`QR code generated and saved for Table ${tableNumber}`);
     } catch (error) {
         res.status(500).send(`Error generating QR code for Table ${tableNumber}`);

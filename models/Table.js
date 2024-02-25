@@ -11,6 +11,10 @@ const tableSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    storeLink:{
+      type:String,
+      required: true
+    }
   },
   {
     timestamps: true,
