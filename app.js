@@ -6,9 +6,10 @@ require('dotenv').config()
 app.use(express.urlencoded());
 app.use(express.json());
 
-/* Admin routes */
-// app.use('/user',require('./routes/user'));
+
+app.use('/user',require('./routes/user'));
 // app.use('/product',require('./routes/product'));
-// app.use('/category',require('./routes/category'));
+app.use('/customer/category',require('./routes/customer/category'));
+// app.use('/aboutus',require('./routes/aboutus'));
 
 module.exports = app;
