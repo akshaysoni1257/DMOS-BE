@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const aboutUsController = require('../controllers/aboutUsController');
-const verifyToken = require('../middleware/authMiddleware');
+const aboutUsController = require('../../controllers/admin/aboutUsController');
+const verifyToken = require('../../middleware/authMiddleware');
 
 
 // Create AboutUs

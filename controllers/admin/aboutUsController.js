@@ -1,6 +1,6 @@
 // controllers/aboutUsController.js
 
-const AboutUs = require("../models/AboutUs");
+const AboutUs = require("../../models/AboutUs");
 
 // Create AboutUs
 module.exports.createAboutUs = async (req, res) => {

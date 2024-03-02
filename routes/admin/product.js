@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('../controllers/productController');
-const verifyToken = require('../middleware/authMiddleware');
+const productController = require('../../controllers/admin/productController');
+
+const verifyToken = require('../../middleware/authMiddleware');
+
 
 router.post('/addProducts',verifyToken, productController.createProduct);
 router.get('/getProducts',verifyToken, productController.GetProducts);

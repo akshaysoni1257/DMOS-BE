@@ -10,7 +10,7 @@ db.once('open',(err)=>
         console.log("DB NOT CONNECTED");
         return false;
     }
-    console.log("DB CONNECTED");
+    console.log("DB CONNECTED In DMOS_ADMIN");
 });
 
 module.exports = db;
