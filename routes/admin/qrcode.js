@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const tableController = require('../controllers/tableController');
-const verifyToken = require('../middleware/authMiddleware');
+const tableController = require('../../controllers/admin/qrcodecontroller');
+
 
 // Generate QR code for a table
 router.post('/generateQR/:tableNumber', async (req, res) => {

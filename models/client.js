@@ -18,7 +18,8 @@ const adminUserSchema = new mongoose.Schema(
     profile_picture: { type: String },
     social_login: { type: Boolean, default: false },
     is_blocked: { type: Boolean, default: false },
-    status: { type: Boolean, default: true }
+    status: { type: Boolean, default: true },
+    role: { type: String }
   },
   {
     timestamps: true,

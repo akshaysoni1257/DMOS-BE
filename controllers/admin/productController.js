@@ -1,9 +1,9 @@
 // controllers/productController.js
-const Product = require("../models/Product");
+const Product = require("../../models/Product");
 
 exports.createProduct = async (req, res) => {
   try {
-    const existingProduct = await Product.findOne({ name: req.body.name });
+    const existingProduct = await Product.findOne({ name: req.body.name,clientId });
     if (existingProduct) {
       return res
         .status(400)

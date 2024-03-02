@@ -1,14 +1,20 @@
 // controllers/categoryController.js
-const Category = require("../models/Category");
+const Category = require("../../models/Category");
 
 exports.createCategory = async (req, res) => {
   try {
-    const existingCategory = await Category.findOne({ name: req.body.name });
+     // Get the client ID from the authenticated user
+     const clientId = req.user.userId; // Assuming the client ID is stored in the user object
+     const existingCategory = await Category.findOne({ name: req.body.name,clientId });
     if (existingCategory) {
       return res
         .status(400)
         .json({ message: "Category with the same name already exists" });
     }
+
+    // Add the clientId to the category data
+    req.body.clientId = clientId;
+
     const category = await Category.create(req.body);
     res.status(201).json({ category });
   } catch (err) {
@@ -17,34 +23,33 @@ exports.createCategory = async (req, res) => {
 };
 exports.getCategories = async (req, res) => {
   try {
-      // const page = parseInt(req.query.page) || 1;
-      // const limit = parseInt(req.query.limit) || 10;
-      // const searchQuery = req.query.searchkey || '';
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const searchQuery = req.query.searchkey || '';
 
-      // const skip = (page - 1) * limit;
+      const skip = (page - 1) * limit;
 
       // Constructing the query based on search criteria
-      // const query = searchQuery ? { name: { $regex: searchQuery, $options: 'i' } } : {};
-      // console.log(query,"1111111");
+      const query = searchQuery ? { name: { $regex: searchQuery, $options: 'i' } } : {};
+
       const categories = await Category.find()
-          // .skip(skip)
-          // .limit(limit)
-          // .exec();
-    console.log(categories,"222222222");
-      // const totalCount = await Category.countDocuments(query);
+          .skip(skip)
+          .limit(limit)
+          .exec();
+      const totalCount = await Category.countDocuments(query);
 
-      // const totalPages = Math.ceil(totalCount / limit);
+      const totalPages = Math.ceil(totalCount / limit);
 
-      // res.status(200).json({
-      //     categories,
-      //     pagination: {
-      //         totalPages,
-      //         currentPage: page,
-      //         totalRecords: totalCount,
-      //         hasNextPage: page < totalPages,
-      //         hasPrevPage: page > 1
-      //     }
-      // });
+      res.status(200).json({
+          categories,
+          pagination: {
+              totalPages,
+              currentPage: page,
+              totalRecords: totalCount,
+              hasNextPage: page < totalPages,
+              hasPrevPage: page > 1
+          }
+      });
   } catch (err) {
       res.status(500).json({ message: err.message });
   }
@@ -54,7 +59,7 @@ exports.getCategories = async (req, res) => {
 
 exports.getCategory = async (req, res) => {
   try {
-    const category = await Category.findById({ _id: req.params.id });
+    const category = await Category.findById({ _id: req.params.id,clientId:req.user.clientId });
     if (!category) {
       return res.status(404).json({ message: "Category not found" });
     }
@@ -68,7 +73,7 @@ exports.updateCategory = async (req, res) => {
   try {
     const category = await Category.findByIdAndUpdate(
       req.params.id,
-      { name: req.body.name },
+      { name: req.body.name,clientId:req.user.clientId },
       { new: true }
     );
     if (!category) {

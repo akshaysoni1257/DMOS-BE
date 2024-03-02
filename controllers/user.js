@@ -124,7 +124,7 @@ module.exports.customerregister = async (req, res) => {
   }
 };
 
-//admin login
+//Customer login
 module.exports.customerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;

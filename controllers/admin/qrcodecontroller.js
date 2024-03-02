@@ -1,7 +1,7 @@
 const qr = require('qrcode');
 const fs = require('fs');
 const path = require('path'); // Import the path module
-const Table = require('../models/Table');
+const Table = require('../../models/Qrcode');
 
 async function generateQRCodeForTable(tableNumber, storeLink) {
     const qrData = `${storeLink}/table/${tableNumber}`; // Combine store link with table number
