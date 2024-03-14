@@ -55,8 +55,6 @@ exports.getCategories = async (req, res) => {
   }
 };
 
-  
-
 exports.getCategory = async (req, res) => {
   try {
     const category = await Category.findById({ _id: req.params.id,clientId:req.user.clientId });

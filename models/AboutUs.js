@@ -21,5 +21,5 @@ const aboutUsSchema = new mongoose.Schema(
   }
 );
 
-const aboutUs = mongoose.model("AboutUs", aboutUsSchema);
+const aboutUs = mongoose.model("aboutus", aboutUsSchema);
 module.exports = aboutUs;

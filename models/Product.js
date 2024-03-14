@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "categories",
       required: true,
     },
     images: [
@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema(
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: "users",
         },
         text: String,
         rating: Number,
@@ -58,5 +58,5 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model("products", productSchema);
 module.exports = Product;
