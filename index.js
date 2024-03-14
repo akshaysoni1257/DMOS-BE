@@ -1,10 +1,13 @@
 const express = require('express');
 const database = require("./config/admindb");
 const app = express();
+const cors = require("cors");
 require('dotenv').config()
 
 app.use(express.urlencoded());
 app.use(express.json());
+app.use(cors());
+
 
 /* Admin routes */
 app.use('/user',require('./routes/user'));

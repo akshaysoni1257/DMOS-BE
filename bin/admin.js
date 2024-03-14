@@ -1,7 +1,9 @@
 // bin/admin.js
 let app = require('../index');
 const http = require('http');
+const cors = require("cors");
 
+app.use(cors());
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
