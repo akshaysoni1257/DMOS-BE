@@ -6,5 +6,6 @@ const CategoryController = require('../../controllers/customer/CategoryControlle
 
 //get Categories
 router.get('/getCustomerCategories',CategoryController.getCustomerCategories);
+router.get('/getCustomerCategory/:id',CategoryController.getCustomerCategory);
 
 module.exports = router;

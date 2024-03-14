@@ -13,7 +13,7 @@ exports.createCategory = async (req, res) => {
     }
 
     // Add the clientId to the category data
-    req.body.clientId = clientId;
+    req.body.userId = clientId;
 
     const category = await Category.create(req.body);
     res.status(201).json({ category });

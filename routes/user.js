@@ -9,6 +9,6 @@ routes.get('/adminLogin',adminregisterController.adminLogin);
 
 /* Client Register & login */
 routes.post('/customerregister',adminregisterController.customerregister);
-routes.get('/customerLogin',adminregisterController.customerLogin);
+routes.post('/customerLogin',adminregisterController.customerLogin);
 
 module.exports = routes;

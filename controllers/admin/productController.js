@@ -3,6 +3,7 @@ const Product = require("../../models/Product");
 
 exports.createProduct = async (req, res) => {
   try {
+    const clientId = req.user.userId;
     const existingProduct = await Product.findOne({ name: req.body.name,clientId });
     if (existingProduct) {
       return res
