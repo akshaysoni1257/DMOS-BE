@@ -22,5 +22,5 @@ const tableSchema = new mongoose.Schema(
   }
 );
 
-const Table = mongoose.model("QrTable", tableSchema);
+const Table = mongoose.model("Qrtables", tableSchema);
 module.exports = Table;

@@ -24,11 +24,12 @@ module.exports.adminregister = async (req, res) => {
         password: hashedPassword, // Store the hashed password in the database
         phone: req.body.phone,
         profile_picture: req.body.profile_picture,
+        role:req.body.role
       });
       
       // Generate JWT token for the client
       const token = JWT.sign({ userId: newAdminUser._id }, "admin"); // Use newAdminUser._id to obtain the user ID
-  
+      
       // Update the new admin user with the token
       newAdminUser.token = token;
       await newAdminUser.save();

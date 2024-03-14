@@ -1,5 +1,5 @@
 const express = require('express');
-const database = require("./config/customerdb");
+const database = require("./config/admindb");
 const app = express();
 require('dotenv').config()
 
