@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-// const ProductController = require('../../controllers/customer/ProductController');
+const AboutusController = require('../../controllers/customer/AboutusController');
 
 
 
 //get Categories
-router.get('/getaboutus',ProductController.GetAboutus);
+router.get('/getaboutus',AboutusController.GetAboutus);
 
 module.exports = router;
