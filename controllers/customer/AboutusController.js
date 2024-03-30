@@ -1,8 +1,8 @@
-const Category = require("../../models/AboutUs");
+const AboutUs = require("../../models/AboutUs");
 
 
 // Get all AboutUs with pagination and search
-module.exports.getAllAboutUs = async (req, res) => {
+module.exports.GetAboutus = async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;

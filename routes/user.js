@@ -4,7 +4,7 @@ const adminregisterController = require('../controllers/user');
 
 /*Admin register*/
 routes.post('/adminregister',adminregisterController.adminregister);
-routes.get('/adminLogin',adminregisterController.adminLogin);
+routes.post('/adminLogin',adminregisterController.adminLogin);
 
 
 /* Client Register & login */
