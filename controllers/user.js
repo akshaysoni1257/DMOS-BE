@@ -85,6 +85,56 @@ module.exports.adminLogin = async (req, res) => {
   }
 };
 
+// Forgot password
+module.exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if the user with the provided email exists
+    const existingUser = await adminUser.findOne({ email: email });
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate a new password (you may want to send it via email or other means)
+    const newPassword = generateNewPassword(); // You need to implement this function
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password in the database
+    existingUser.password = hashedPassword;
+    await existingUser.save();
+
+    return res.json({ message: "New password generated and updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+};
+
+// Logout
+module.exports.logout = async (req, res) => {
+  try {
+    // Destroy the session
+    req.session.destroy(err => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).json({ message: "Internal server error" });
+      } else {
+        return res.json({ message: "Logout successful" });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+};
+
+// Helper function to generate a new password
+function generateNewPassword() {
+  // Implement your logic to generate a new password (e.g., random string generation)
+  return "newpassword123"; // Dummy password for demonstration purposes
+}
+
 
 //Customer Registration
 module.exports.customerregister = async (req, res) => {

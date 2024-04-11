@@ -24,11 +24,9 @@ const productSchema = new mongoose.Schema(
       ref: "categories",
       required: true,
     },
-    images: [
-      {
+    img: {
         type: String,
       },
-    ],
     likes: {
       type: Number,
       default: 0,
