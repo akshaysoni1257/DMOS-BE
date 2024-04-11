@@ -4,7 +4,7 @@ const Product = require("../../models/Product");
 exports.GetCustomerProducts = async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 10;
+      const limit = parseInt(req.query.limit);
   
       const skip = (page - 1) * limit;
   
