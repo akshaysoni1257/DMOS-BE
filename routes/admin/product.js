@@ -11,6 +11,9 @@ router.get('/getProduct/:id',verifyToken, productController.GetProduct);
 router.put('/updateProduct/:id',verifyToken, productController.UpdateProduct);
 router.post('/deleteProduct',verifyToken, productController.DeleteProduct);
 
+// Route for handling image uploads
+// router.post('/upload', productController.uploadImage);
+
 
 
 module.exports = router;

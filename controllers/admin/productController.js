@@ -1,26 +1,60 @@
 // controllers/productController.js
 const Product = require("../../models/Product");
 
+const cloudinary = require('cloudinary').v2; // Import Cloudinary library
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 exports.createProduct = async (req, res) => {
   try {
     const clientId = req.user.userId;
-    const existingProduct = await Product.findOne({ name: req.body.name,clientId });
+    const existingProduct = await Product.findOne({ name: req.body.name, clientId });
     if (existingProduct) {
-      return res
-        .status(400)
-        .json({ message: "Product with the same name already exists" });
+      return res.status(400).json({ message: "Product with the same name already exists" });
     }
-    const product = await Product.create(req.body);
+
+    let imageUrl;
+    if (req.body.img) {
+      const result = await cloudinary.uploader.upload(req.body.img);
+      imageUrl = result.secure_url;
+    }
+
+    // Create the product with the provided data and the Cloudinary image URL if available
+    const product = await Product.create({
+      ...req.body,
+      imageUrl: imageUrl // Add the Cloudinary image URL to the product data
+    });
     res.status(201).json({ product });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
+// exports.createProduct = async (req, res) => {
+//   try {
+//     const clientId = req.user.userId;
+//     const existingProduct = await Product.findOne({ name: req.body.name,clientId });
+//     if (existingProduct) {
+//       return res
+//         .status(400)
+//         .json({ message: "Product with the same name already exists" });
+//     }
+//     const product = await Product.create(req.body);
+//     res.status(201).json({ product });
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// };
+
 exports.GetProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit);
 
     const skip = (page - 1) * limit;
 
@@ -101,3 +135,33 @@ exports.DeleteProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+// // Configure Cloudinary
+// cloudinary.config({
+//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//     api_key: process.env.CLOUDINARY_API_KEY,
+//     api_secret: process.env.CLOUDINARY_API_SECRET
+// });
+
+// // Controller function to handle image upload
+// const uploadImage = async (req, res) => {
+//     try {
+//         // Upload image to Cloudinary
+//         const result = await cloudinary.uploader.upload(req.file.buffer, {
+//             resource_type: 'image'
+//         });
+
+//         // Return Cloudinary response
+//         res.json(result);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Something went wrong' });
+//     }
+// };
+
+// module.exports = {
+//     uploadImage
+// };
+
