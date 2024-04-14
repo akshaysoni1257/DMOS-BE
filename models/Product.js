@@ -27,6 +27,9 @@ const productSchema = new mongoose.Schema(
     img: {
         type: String,
       },
+    imageUrl:{
+      type: String
+    },
     likes: {
       type: Number,
       default: 0,
