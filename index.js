@@ -16,5 +16,7 @@ app.use('/admin/product',require('./routes/admin/product'));
 app.use('/admin/category',require('./routes/admin/category'));
 app.use('/admin/aboutus',require('./routes/admin/aboutus'));
 app.use('/admin/tableRoutes',require('./routes/admin/qrcode'));
+app.use('/admin/order',require('./routes/admin/order'));
+app.use('/admin/dashboard',require('./routes/admin/dashboard'));
 
 module.exports = app;

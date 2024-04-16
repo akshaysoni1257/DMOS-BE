@@ -13,5 +13,7 @@ app.use('/user',require('./routes/user'));
 app.use('/customer/category',require('./routes/customer/category'));
 app.use('/customer/product',require('./routes/customer/product'));
 app.use('/customer/aboutus',require('./routes/customer/aboutus'));
+app.use('/customer/cart',require('./routes/customer/cart'));
+app.use('/customer/order',require('./routes/customer/order'));
 
 module.exports = app;
