@@ -2,6 +2,8 @@
 
 const Product = require('../../models/Product');
 const Order = require('../../models/Order');
+const Category = require('../../models/Category');
+const Table = require('../../models/Qrcode');
 
 exports.getStatistics = async (req, res) => {
   try {
@@ -25,5 +27,35 @@ exports.getStatistics = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching statistics', error: error.message });
+  }
+};
+
+exports.getRecentData = async (req, res) => {
+  try {
+    // Aggregate categories
+    const recentCategories = await Category.aggregate([
+      { $sort: { createdAt: -1 } },
+      { $limit: 5 }
+    ]);
+
+    // Aggregate products
+    const recentProducts = await Product.aggregate([
+      { $sort: { createdAt: -1 } },
+      { $limit: 5 }
+    ]);
+
+    // Aggregate QR codes
+    const recentQRCodes = await Table.aggregate([
+      { $sort: { createdAt: -1 } },
+      { $limit: 5 }
+    ]);
+
+    res.status(200).json({
+      recentCategories,
+      recentProducts,
+      recentQRCodes
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching recent data', error: error.message });
   }
 };
