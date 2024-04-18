@@ -44,12 +44,26 @@ exports.addToCart = async (req, res) => {
 //view cart
 exports.viewCart = async (req, res) => {
   try {
+    // Find the cart for the current user and populate the items
     const cart = await Cart.findOne({ customer: req.user.userId }).populate('items.product');
-    res.status(200).json(cart);
+
+    // Calculate the total quantity of items in the cart
+    const totalItems = cart.items.reduce((acc, item) => acc + item.quantity, 0);
+
+    // Return the cart with the total quantity of items
+    res.status(200).json({ cart, totalItems });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+// exports.viewCart = async (req, res) => {
+//   try {
+//     const cart = await Cart.findOne({ customer: req.user.userId }).populate('items.product');
+//     res.status(200).json(cart);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 
 //Update cart
 exports.updateCart = async (req, res) => {
