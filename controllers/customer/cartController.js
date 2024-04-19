@@ -114,3 +114,23 @@ exports.deleteCartProduct = async (req, res) => {
   }
 };
 
+
+//Clear cart
+exports.clearCart = async (req, res) => {
+  try {
+    // Find the cart for the current user and populate the items
+    let cart = await Cart.findOne({ customer: req.user.userId }).populate('items.product');
+
+    // Remove all products from the cart by emptying the items array
+    cart.items = [];
+
+    // Save the changes
+    await cart.save();
+
+    // Return an empty cart
+    res.status(200).json({ message: 'Cart cleared successfully', cart });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
