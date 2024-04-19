@@ -12,4 +12,6 @@ router.put('/update-cart/:productId', verifyToken, cartController.updateCart);
 // Delete cart product route
 router.delete('/delete-cart/:productId', verifyToken, cartController.deleteCartProduct);
 
+//all clear cart
+router.delete('/clear-cart', verifyToken, cartController.clearCart);
 module.exports = router;

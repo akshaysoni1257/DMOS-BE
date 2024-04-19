@@ -19,10 +19,13 @@ exports.createOrder = async (req, res) => {
     // Calculate total amount from cart items
     const totalAmount = cart.items.reduce((acc, item) => acc + item.totalPrice, 0);
 
+    // Convert the total amount to the smallest currency unit (paise)
+    const totalAmountInPaise = totalAmount * 100;
+
     // Check if total amount meets the minimum charge amount
     const currency = 'inr'; // Change to your desired currency
-    const minimumChargeAmount = 0.50; // Adjust based on your currency's minimum charge amount
-    if (totalAmount < minimumChargeAmount) {
+    const minimumChargeAmount = 50; // Adjust based on your currency's minimum charge amount
+    if (totalAmountInPaise < minimumChargeAmount) {
       return res.status(400).json({ message: `Total amount is below the minimum charge amount of ${minimumChargeAmount} ${currency}` });
     }
 
