@@ -170,8 +170,8 @@ exports.createOrder = async (req, res) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: 'https://yourwebsite.com/success',
-      cancel_url: 'https://yourwebsite.com/cancel',
+      success_url: 'http://localhost:3002/sucess', //http://localhost:3002/sucess
+      cancel_url: 'http://localhost:3002/failed', //http://localhost:3002/failed
     });
 
     // Create order in your database
