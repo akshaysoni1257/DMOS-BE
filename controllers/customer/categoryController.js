@@ -46,3 +46,13 @@ exports.getCustomerCategory = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getCategorywiseproducts = async (req,res) => {
+  try {
+    const category = req.params.categoryName;
+    const filteredData = allData.filter(item => item.category === category);
+    res.json(filteredData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
