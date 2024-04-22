@@ -32,7 +32,7 @@ exports.createOrder = async (req, res) => {
       currency: currency,
       metadata: { integration_check: 'accept_a_payment' }
     });
-    console.log(paymentIntent.id);
+
     // Create order in your database
     const newOrder = await Order.create({
       customer: req.user.userId,
@@ -44,7 +44,7 @@ exports.createOrder = async (req, res) => {
     cart.items = [];
     await cart.save();
 
-    res.status(201).json({ message: 'Order created successfully', order: newOrder, clientSecret: paymentIntent.client_secret });
+    res.status(201).json({ message: 'Order created successfully', order: newOrder, clientSecret: paymentIntent.client_secret,paymentIntentId: paymentIntent.id });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
