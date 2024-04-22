@@ -44,7 +44,35 @@ exports.addToCart = async (req, res) => {
 //view cart
 exports.viewCart = async (req, res) => {
   try {
+    // Retrieve cart with populated product details
     const cart = await Cart.findOne({ customer: req.user.userId }).populate('items.product');
+
+    // Calculate total price of all items
+    let totalPriceOfAllItems = 0;
+
+    cart.items.forEach(item => {
+      const itemPrice = item.product.price * item.quantity;
+      totalPriceOfAllItems += itemPrice;
+      // Add the individual item price to the item object
+      item.totalPrice = itemPrice;
+    });
+    
+    // Calculate cart total
+    let carttotal = 0;
+    for (let item of cart.items){
+      carttotal += item.totalPrice;
+    } 
+
+    // Add the total price of all items to the cart object
+    cart.totalPriceOfAllItems = totalPriceOfAllItems;
+
+    // Add cart total to the cart object
+    cart.carttotal = carttotal;
+
+    //Save the updated cart (optional if there are no other changes to save)
+    await cart.save();
+      
+    // Send the updated cart to the client
     res.status(200).json(cart);
   } catch (err) {
     res.status(500).json({ message: err.message });
