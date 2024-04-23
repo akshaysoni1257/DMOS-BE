@@ -302,3 +302,28 @@ exports.viewOrders = async (req, res) => {
     }
   };
   
+// // Webhook handler for successful payment
+// exports.handlePaymentSuccess = async (req, res) => {
+//   const payload = req.body;
+//   try {
+//     // Verify the event
+//     const sig = req.headers['stripe-signature'];
+//     const event = stripe.webhooks.constructEvent(payload, sig, process.env.STRIPE_WEBHOOK_SECRET);
+
+//     if (event.type === 'checkout.session.completed') {
+//       const session = event.data.object;
+//       // Retrieve the order associated with the session ID
+//       const order = await Order.findOne({ checkoutSessionId: session.id });
+//       if (order) {
+//         // Update the status of the order to 'paid'
+//         order.status = 'paid';
+//         await order.save();
+//       }
+//     }
+
+//     res.status(200).json({ received: true });
+//   } catch (err) {
+//     console.error('Error handling webhook:', err.message);
+//     res.status(400).send(`Webhook Error: ${err.message}`);
+//   }
+// };
