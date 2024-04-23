@@ -25,7 +25,7 @@ const cloudinary = require('cloudinary').v2;
 // }
 
 async function generateQRCodeForTable(tableNumber, storeLink) {
-    const qrData = `${storeLink}/table/${tableNumber}`; // Combine store link with table number
+    const qrData = `${storeLink}/menu`; // Combine store link with table number
 
     try {
         const qrCodeImage = await qr.toDataURL(qrData);

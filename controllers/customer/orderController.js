@@ -140,6 +140,7 @@ const stripe = require('stripe')(process.env.Secret_key);
 //   }
 // };
 
+//Final code
 exports.createOrder = async (req, res) => {
   try {
     // Retrieve cart and calculate total amount
