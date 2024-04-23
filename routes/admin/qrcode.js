@@ -12,6 +12,7 @@ const upload = multer({ storage });
 router.post('/generateQR/:tableNumber', async (req, res) => {
     const tableNumber = req.params.tableNumber;
     const storeLink = process.env.storeLink;
+    //process.env.storeLink;
 
     try {
         await tableController.generateQRCodeForTable(tableNumber,storeLink);

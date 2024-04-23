@@ -3,7 +3,25 @@ const Order = require('../../models/Order');
 // Get all customer orders
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('customer', 'first_name last_name email');
+    const orders = await Order.find().populate({
+      path: 'items.product',
+      model: 'products',
+      select: 'name price quantity img'
+    }).populate('customer', 'first_name last_name email');
+    
+     // Iterate over each order
+     orders.forEach(order => {
+      let totalOrderPrice = 0;
+
+      // Iterate over each item in the order and accumulate the total price
+      order.items.forEach(item => {
+        totalOrderPrice += item.totalPrice;
+      });
+
+      // Add the totalOrderPrice to the order object
+      order.totalOrderPrice = totalOrderPrice;
+    });
+
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching orders', error: error.message });
