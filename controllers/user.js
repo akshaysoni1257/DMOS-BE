@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const { response } = require("express");
 const JWT = require("jsonwebtoken");
 const adminUser = require("../models/client");
 const customerUser =  require('../models/User');
@@ -212,3 +213,15 @@ module.exports.customerLogin = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   }
 };
+
+//Getuserdetails
+module.exports.Getuserdetails = async (req, res) => {
+  try {
+      const userdetails = await customerUser.findById({_id:req.user.userId})
+      res.json(userdetails)
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}

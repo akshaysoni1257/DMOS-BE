@@ -16,4 +16,7 @@ router.put('/update-order/:orderId', verifyToken, orderController.updateOrder);
 // Delete order route
 router.delete('/delete-order/:orderId', verifyToken, orderController.deleteOrder);
 
+// Define route for handling successful payment webhook
+// router.post('/webhook', orderController.handlePaymentSuccess);
+
 module.exports = router;

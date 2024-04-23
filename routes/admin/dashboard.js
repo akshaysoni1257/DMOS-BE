@@ -5,6 +5,6 @@ const router = express.Router();
 const statsController = require('../../controllers/admin/statsController');
 
 // Get statistics
-router.get('/stats', statsController.getStatistics);
+router.get('/stats',statsController.getStatistics);
 
 module.exports = router;
